@@ -1,0 +1,16 @@
+version: '3'
+services:
+  app:
+    image: zeportus/pivovarov_bot
+    ports:
+      - 8008:8008
+    restart: always
+    
+  waha:
+    image: devlikeapro/whatsapp-http-api
+    ports:
+      - 3000:3000
+    environment:
+      - WHATSAPP_HOOK_EVENTS=message
+      - WHATSAPP_HOOK_URL=http://app:8008/waha_getter
+    restart: always

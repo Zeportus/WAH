@@ -1,0 +1,29 @@
+#back_form {
+    display: flex;
+    justify-content:space-between;
+}
+
+#phones_spam {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
+
+#main_form {
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+textarea {
+    width: 400px;
+    height: 400px;
+}
+
+#auto_answers{
+    text-align: center;
+}
+
+.auto_answer input {
+    width: 400px;
+    margin-left: 2%;
+}

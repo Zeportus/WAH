@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Настройка рассылки</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='/manager_panel_styles.css') }}">
+    </head>
+    <body>
+        <form id="back_form" method="get" action="/login">
+            <input type="submit" value="Назад"> 
+            <div>Менеджер {{ name }}</div>
+        </form>
+
+        <form id="main_form" method="post" action="/manager_action/{{name}}">
+            <div id="phones_spam">
+                <div id="phones">
+                    <div>Формат номеров: 79XXXXXXXXX<br>Каждый номер в новой строке<br>Номера для рассылки:</div> <br>
+                    {% if phones != None %}
+                    <textarea placeholder="Введите номера" name="phones">{{phones}}</textarea>
+                    {% else %}
+                    <textarea placeholder="Введите номера" name="phones"></textarea>
+                    {% endif %}
+
+                </div>
+                <div id="spam">
+                    <div><br>Сообщение для рассылки:<br><br></div> <br>
+                    {% if message != None %}
+                    <textarea placeholder="Введите сообщение" name="message">{{message}}</textarea>
+                    {% else %}
+                    <textarea placeholder="Введите сообщение" name="message"></textarea>
+                    {% endif %}
+                </div>
+            </div>
+
+            <br><br>
+
+            <div id="auto_answers">
+                <div>Автоматические ответы:</div>
+                <br>
+                <button name="action" value="Добавить">+</button>
+                
+                {% for auto_answer in auto_answers %}
+                <br><br>
+                <div class="auto_answer">
+                    <button class="delete_button" name="action" value="{{ auto_answer[0] }}">-</button>
+                    {% if auto_answer[1] != None and auto_answer[2] != None %}
+                    <input type="text" name="trigger" class="trigger" placeholder="Введите слово или словосочетание на которое нужно ответить" value="{{ auto_answer[1] }}">
+                    <input type="text" name="answer" class="answer" placeholder="Введите что нужно ответить" value="{{ auto_answer[2] }}">
+                    {% else %}
+                    <input type="text" name="trigger" class="trigger" placeholder="Введите слово или словосочетание на которое нужно ответить" value="">
+                    <input type="text" name="answer" class="answer" placeholder="Введите что нужно ответить" value="">
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+
+            <br><br><br><br>
+
+            <label>Задержка между сообщениями в секундах:</label>
+            <input type="text" name="delay" placeholder="Введите задержку" style="margin-left: 1%;" value="{{ delay }}">
+            
+            <br><br><br><br>
+            <label>Номер бота менеджера:</label>
+            <input type="text" name="manager_phone" placeholder="Введите телефон бота" style="margin-left: 1%;" value="{{ manager_phone }}">
+
+            <br><br><br><br>
+
+            <input type="submit" name="action" value="Сохранить">
+            <input type="submit" name="action" value="Отправить">
+        </form>
+
+        <br><br><br>
+
+        <form action="http://localhost:3000/api/sessions/stop" method="post">
+            <input type="hidden" name="logout" value="true">
+            <input type="hidden" name="name" value="default">
+            <button type="submit">Отвязать устройство</button>
+        </form>
+        <br><br>
+        <form action="http://localhost:3000/api/sessions/start" method="post">
+            <input type="hidden" name="name" value="default">
+            <button type="submit">Привязать новое устройство</button>
+        </form>
+        <br><br>
+        <form action="http://localhost:3000/api/screenshot" method="get">
+            <input type="hidden" name="session" value="default">
+            <button type="submit">Получить QR-код для привязки</button>
+        </form>
+    </body>
+</html>

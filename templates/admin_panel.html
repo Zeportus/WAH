@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Настройка менеджеров</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='/admin_panel_styles.css') }}">
+    </head>
+    <body>
+        <form id="back_form" method="get" action="/login">
+            <input type="submit" value="Назад"> 
+        </form>
+
+        <br><br>
+
+        <form id="managers_list" method="post" action="/admin_action">
+            <div>Список менеджеров (Логины и пароли):</div>
+            <br>
+            
+            {% for user in users %}
+            <br>
+            <div class="manager">
+                <input type="text" class="login" placeholder="Логин менеджера" value="{{ user[0] }}" readonly="readonly">
+                <input type="text" class="password" placeholder="Пароль менеджера" value="{{ user[1] }}" readonly="readonly">
+            </div>
+            {% endfor %}
+
+            <br><br><br>
+            
+            <input type="text" name="login" placeholder="Введите логин">
+            <input type="text" name="password" placeholder="Введите пароль">
+            <br>
+            <input type="submit" name="action" value="Добавить">
+            <br>
+            <input type="submit" name="action" value="Удалить">
+        </form>
+    </body>
+</html>

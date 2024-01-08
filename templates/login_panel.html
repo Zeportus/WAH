@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Авторизация</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='/login_panel_styles.css') }}">
+    </head>
+    <body>
+        <form id="back_form" method="post" action="/auth">
+            <span>Логин:</span> <input name="login" type="text" placeholder="Введите логин">
+            <br>
+            <span>Пароль:</span> <input name="password" type="text" placeholder="Введите пароль">
+            <br>
+            <input type="submit" value="Войти">
+        </form>
+    </body>
+</html>
